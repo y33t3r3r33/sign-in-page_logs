@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard | SecureBank'</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <div class="header">
+            <img src="bank-logo.png" alt="Bank Logo" class="bank-logo">
+            <h2>Welcome, <span id="username-display"></span>!</h2>
+            <p id="role-display"></p>
+        </div>
+
+        <div class="content">
+            <h3>Recent Activity:</h3>
+            <ul id="activity-list"></ul>
+        </div>
+
+        <button id="logout-btn" class="login-btn">Log Out</button>
+        <button id="settings-btn" class="login-btn">Settings</button>
+        <button id="clear-logs-btn" style="display: none;">Clear Logs</button>
+
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" id="close-settings-btn">&times;</span>
+                <h3>User Settings</h3>
+
+                <!-- Theme Toggle -->
+                <label for="theme-toggle">Dark Mode</label>
+                <input type="checkbox" id="theme-toggle">
+
+                <h3>Basic Information</h3>
+                <form id="update-info-form">
+                    <label for="full-name">Full Name</label>
+                    <input type="text" id="full-name" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+
+                    <button type="submit" class="login-btn">Save Changes</button>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; SecureBank. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="dashboard.js"></script>
+    
+</body>
+</html>
