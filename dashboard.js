@@ -12,7 +12,7 @@ window.onload = function () {
         document.getElementById("role-display").innerText = `Role: ${role}`;
 
         // Show the login logs only if the user is an admin
-        if (role === "IT", "IT Manager") {
+        if (role == "IT", "IT Manager") {
             // Load activities (from loginLogs)
             const activities = JSON.parse(localStorage.getItem("loginLogs")) || [];
             const activityList = document.getElementById("activity-list");
@@ -24,9 +24,10 @@ window.onload = function () {
 
             // Show the Clear Logs button for admins
             document.getElementById("clear-logs-btn").style.display = "inline-block"; 
-        } else {
+        }
+        else {
             // If not an admin, hide the activity section or leave it empty
-            document.getElementById("activity-section").style.display = "none";
+            document.getElementById("activity-list").style.display = "none";
         }
     }
 };
