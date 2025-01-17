@@ -5,20 +5,22 @@ window.onload = function () {
     } else {
         // Load and display user data
         const fullName = localStorage.getItem("fullName");
-        const email = localStorage.getItem("email");
+        //const email = localStorage.getItem("email");
         const role = localStorage.getItem("role");
+        const IP = localStorage.getItem("IP");
 
-        document.getElementById("username-display").innerText = fullName;
+        document.getElementById("ID-display").innerText = fullName;
         document.getElementById("role-display").innerText = `Role: ${role}`;
+        document.getElementById("IP-display").innerText = IP;
 
         // Show the login logs only if the user is an admin
-        if (role == "IT", "IT Manager") {
+        if (role == "IT", "TEST") {
             // Load activities (from loginLogs)
             const activities = JSON.parse(localStorage.getItem("loginLogs")) || [];
             const activityList = document.getElementById("activity-list");
             activities.forEach(activity => {
                 const li = document.createElement("li");
-                li.innerText = `${activity.username} - ${activity.action} at ${activity.timestamp}`;
+                li.innerText = `${activity.ID} - ${activity.action} at ${activity.timestamp}`;
                 activityList.appendChild(li);
             });
 
@@ -39,6 +41,7 @@ document.getElementById("logout-btn").addEventListener("click", function () {
     localStorage.removeItem("role");
     localStorage.removeItem("email");
     localStorage.removeItem("theme");
+    localStorage.removeItem("IP");
     window.location.href = "index.html"; // Redirect to login page
 });
 
@@ -95,7 +98,7 @@ document.getElementById("update-info-form").addEventListener("submit", function 
     settingsModal.classList.remove("open");
 
     // Reflect the updated information immediately on the dashboard
-    document.getElementById("username-display").innerText = updatedFullName;
+    document.getElementById("ID-display").innerText = updatedFullName;
     document.getElementById("role-display").innerText = `Role: ${localStorage.getItem("role")}`;
     alert("Settings updated successfully!");
 });

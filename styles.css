@@ -17,14 +17,14 @@ body {
 }
 
 body.dark-mode {
-    background-color: #333;
-    color: #FFF;
+    background-color: #000000;
+    color: #383838;
 }
 
 .dashboard-container {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 40px 200px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 600px;
     padding: 40px;
@@ -132,12 +132,12 @@ input[type="text"], input[type="email"], input[type="password"], input[type="che
 
 /* Dark mode styles */
 body.dark-mode {
-    background-color: #333;
+    background-color: #000000;
     color: #000000;
 }
 
 .dashboard-container.dark-mode {
-    background-color: #161616;
+    background-color: #ffffff;
 }
 
 h2.dark-mode, .login-btn.dark-mode {
