@@ -1,26 +1,65 @@
 // Simulating a simple set of users for the login
 const users = [
-    { ID: "19557400", password: "w@9B*aaq&js", fullName: "Bartholomule John 2nd", role: "Account Manager", IP: "192.168.0.168" },
-    { ID: "25323122", password: "^%oyMSSBPO8:", fullName: "Ethan Chen", role: "Loan Officer", IP: "192.168.0.152" },
-    { ID: "09820158", password: "p*ga6)g#38DF", fullName: "Wei Smith", role: "Accounting Manager", IP: "192.168.0.138" },
-    { ID: "51758413", password: "#O)<[3;9}jHa", fullName: "Priya Ali", role: "IT Manager", IP: "192.168.0.038" },
-    { ID: "77679509", password: "=L0Y|_0R<(<g", fullName: "Emma Ali", role: "Bank Teller", IP: "192.168.0.108" },
-    { ID: "86672506", password: "w|1E2Abi<F=O", fullName: "Charlotte Harris", role: "Loan Officer", IP: "192.168.0.109" },
-    { ID: "04767522", password: "L{a5o12,ad!+", fullName: "Ava Miller", role: "IT", IP: "192.168.0.123" },
-    { ID: "32701602", password: "&@M;1e?3tA!2", fullName: "Olivia Williams", role: "Accounting", IP: "192.168.0.663" },
-    { ID: "32163894", password: ".#JUo],FY5]e", fullName: "Mohammad Smith", role: "Credit Card Saleman", IP: "192.168.0.128" },
-    { ID: "48466165", password: "j)]5Rs*[twXO", fullName: "Juan Nguyen", role: "Bank Teller", IP: "192.168.0.192" },
-    { ID: "14391146", password: "&?pPyoRhfQi5", fullName: "Charlotte Kumar", role: "IT", IP: "192.168.0.145" },
-    { ID: "88374363", password: "EP^3=1oVd(o}", fullName: "Priya Martin", role: "Bank Teller", IP: "192.168.0.124" },
-    { ID: "96533919", password: "smoooooothoperator", fullName: "Carlos Sainz", role: "F1 Driver", IP: "192.168.0.134" },
-    { ID: "64948566", password: "=9ys-guX>nDX", fullName: "Lucas Williams", role: "Credit Card Salesman", IP: "192.168.0.144" },
-    { ID: "31628167", password: "YXKVEec3XQA9FL95HC5i", fullName: "Mohammad Thomas", role: "Accounting", IP: "192.168.0.125" },
-    { ID: "91628710", password: "e(Ky3Q?=A5[3Imu{", fullName: "Amelia Kim", role: "Logistics", IP: "192.168.0.149" },
-    { ID: "12493268", password: "ay6e3UG8KTMecuOaLjqz", fullName: "Benjamin Martinez", role: "Teller Manager", IP: "192.168.0.158" },
-    { ID: "72523995", password: "4timeworldchampion", fullName: "Max Verstappen", role: "F1 Driver", IP: "192.168.0.178" },
-    { ID: "mrslang", password: "password", fullName: "Mrs.Lang", role: "Teacher", IP: "192.168.0.177" },
-    { ID: "TEST", password: "TEST", fullName: "TEST", role: "TEST", IP: "TEST" }
+    { ID: "19557400", password: "w@9B*aaq&js", fullName: "Bartholomule John 2nd", role: "Account Manager" },
+    { ID: "25323122", password: "^%oyMSSBPO8:", fullName: "Ethan Chen", role: "Loan Officer" },
+    { ID: "09820158", password: "p*ga6)g#38DF", fullName: "Wei Smith", role: "Accounting Manager" },
+    { ID: "51758413", password: "#O)<[3;9}jHa", fullName: "Priya Ali", role: "IT Manager" },
+    { ID: "77679509", password: "=L0Y|_0R<(<g", fullName: "Emma Ali", role: "Bank Teller" },
+    { ID: "86672506", password: "w|1E2Abi<F=O", fullName: "Charlotte Harris", role: "Loan Officer" },
+    { ID: "04767522", password: "L{a5o12,ad!+", fullName: "Ava Miller", role: "IT" },
+    { ID: "32701602", password: "&@M;1e?3tA!2", fullName: "Olivia Williams", role: "Accounting" },
+    { ID: "32163894", password: ".#JUo],FY5]e", fullName: "Mohammad Smith", role: "Credit Card Saleman" },
+    { ID: "48466165", password: "j)]5Rs*[twXO", fullName: "Juan Nguyen", role: "Bank Teller" },
+    { ID: "14391146", password: "&?pPyoRhfQi5", fullName: "Charlotte Kumar", role: "IT" },
+    { ID: "88374363", password: "EP^3=1oVd(o}", fullName: "Priya Martin", role: "Bank Teller" },
+    { ID: "96533919", password: "smoooooothoperator", fullName: "Carlos Sainz", role: "F1 Driver" },
+    { ID: "64948566", password: "=9ys-guX>nDX", fullName: "Lucas Williams", role: "Credit Card Salesman" },
+    { ID: "31628167", password: "YXKVEec3XQA9FL95HC5i", fullName: "Mohammad Thomas", role: "Accounting" },
+    { ID: "91628710", password: "e(Ky3Q?=A5[3Imu{", fullName: "Amelia Kim", role: "Logistics" },
+    { ID: "12493268", password: "ay6e3UG8KTMecuOaLjqz", fullName: "Benjamin Martinez", role: "Teller Manager" },
+    { ID: "72523995", password: "4timeworldchampion", fullName: "Max Verstappen", role: "F1 Driver" },
+    { ID: "mrslang", password: "password", fullName: "Mrs.Lang", role: "Teacher" },
+    { ID: "TEST", password: "TEST", fullName: "TEST", role: "TEST" }
 ];
+
+// Function to fetch the local IP address using WebRTC
+async function fetchLocalIPAddress() {
+    return new Promise((resolve, reject) => {
+        const peerConnection = new RTCPeerConnection();
+        peerConnection.createDataChannel('');
+        peerConnection.createOffer().then(offer => peerConnection.setLocalDescription(offer));
+        peerConnection.onicecandidate = event => {
+            if (event && event.candidate && event.candidate.candidate) {
+                const candidate = event.candidate.candidate;
+                const ipRegex = /([0-9]{1,3}\.){3}[0-9]{1,3}/;
+                const ipAddress = ipRegex.exec(candidate);
+                if (ipAddress) {
+                    console.log('Local IP address found:', ipAddress[0]);
+                    resolve(ipAddress[0]);
+                    peerConnection.close();
+                }
+            }
+        };
+        setTimeout(() => {
+            console.error('Failed to fetch local IP address');
+            reject('Failed to fetch local IP address');
+            peerConnection.close();
+        }, 1000);
+    });
+}
+
+// Function to fetch the public IP address using ipify
+async function fetchPublicIPAddress() {
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        console.log('Public IP address found:', data.ip);
+        return data.ip;
+    } catch (error) {
+        console.error('Error fetching public IP address:', error);
+        return 'Unknown IP';
+    }
+}
 
 // Check if user is logged in on page load
 window.onload = function () {
@@ -30,7 +69,7 @@ window.onload = function () {
 };
 
 // Handle login
-document.getElementById("login-form").addEventListener("submit", function (e) {
+document.getElementById("login-form").addEventListener("submit", async function (e) {
     e.preventDefault();
     
     const ID = document.getElementById("ID").value;
@@ -40,12 +79,23 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
     const user = users.find(u => u.ID === ID && u.password === password);
     
     if (user) {
+        // Fetch the local IP address
+        let IP = await fetchLocalIPAddress().catch(error => {
+            console.error(error);
+            return null;
+        });
+
+        // If local IP address is not available, fetch the public IP address
+        if (!IP) {
+            IP = await fetchPublicIPAddress();
+        }
+
         // Successful login
         localStorage.setItem("isLoggedIn", true);
         localStorage.setItem("ID", ID);
         localStorage.setItem("fullName", user.fullName);
         localStorage.setItem("role", user.role);
-        localStorage.setItem("IP", user.IP);
+        localStorage.setItem("IP", IP);
         logActivity("Login");
         window.location.href = "dashboard.html";
     } else {
@@ -66,3 +116,15 @@ function logActivity(action) {
     activities.push(newActivity);
     localStorage.setItem("loginLogs", JSON.stringify(activities));
 }
+
+// Handle logout
+document.getElementById("logout-btn").addEventListener("click", function () {
+    logActivity("Logout");
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("fullName");
+    localStorage.removeItem("role");
+    localStorage.removeItem("email");
+    localStorage.removeItem("theme");
+    localStorage.removeItem("IP");
+    window.location.href = "index.html"; // Redirect to login page
+});

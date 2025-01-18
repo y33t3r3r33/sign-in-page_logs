@@ -11,7 +11,7 @@ window.onload = function () {
 
         document.getElementById("ID-display").innerText = fullName;
         document.getElementById("role-display").innerText = `Role: ${role}`;
-        document.getElementById("IP-display").innerText = IP;
+        document.getElementById("IP-display").innerText = `IP: ${IP}`;
 
         // Show the login logs only if the user is an admin
         if (role == "IT", "TEST") {
@@ -20,7 +20,7 @@ window.onload = function () {
             const activityList = document.getElementById("activity-list");
             activities.forEach(activity => {
                 const li = document.createElement("li");
-                li.innerText = `${activity.ID} - ${activity.action} at ${activity.timestamp}`;
+                li.innerText = `${activity.ID} - ${activity.IP} - ${activity.action} at ${activity.timestamp}`;
                 activityList.appendChild(li);
             });
 

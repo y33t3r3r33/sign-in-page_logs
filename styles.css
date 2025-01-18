@@ -137,7 +137,7 @@ body.dark-mode {
 }
 
 .dashboard-container.dark-mode {
-    background-color: #ffffff;
+    background-color: #000000;
 }
 
 h2.dark-mode, .login-btn.dark-mode {
