@@ -61,8 +61,47 @@ async function fetchPublicIPAddress() {
     }
 }
 
+// Function to fetch logs from the server
+async function fetchLogs() {
+    try {
+        const response = await fetch('http://localhost:3000/logs');
+        const logs = await response.json();
+        return logs;
+    } catch (error) {
+        console.error('Error fetching logs:', error);
+        return [];
+    }
+}
+
+// Function to save a log to the server
+async function saveLog(log) {
+    try {
+        const response = await fetch('http://localhost:3000/logs', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(log)
+        });
+        return await response.json();
+    } catch (error) {
+        console.error('Error saving log:', error);
+    }
+}
+
+// Function to log user activities to the server
+async function logActivity(action) {
+    const log = {
+        ID: localStorage.getItem("ID"),
+        IP: localStorage.getItem("IP"),
+        action: action,
+        timestamp: new Date().toLocaleString()
+    };
+    await saveLog(log);
+}
+
 // Check if user is logged in on page load
-window.onload = function () {
+window.onload = async function () {
     if (localStorage.getItem("isLoggedIn")) {
         window.location.href = "dashboard.html";
     }
@@ -96,7 +135,7 @@ document.getElementById("login-form").addEventListener("submit", async function 
         localStorage.setItem("fullName", user.fullName);
         localStorage.setItem("role", user.role);
         localStorage.setItem("IP", IP);
-        logActivity("Login");
+        await logActivity("Login");
         window.location.href = "dashboard.html";
     } else {
         // Invalid credentials
@@ -104,22 +143,9 @@ document.getElementById("login-form").addEventListener("submit", async function 
     }
 });
 
-// Function to log user activities to localStorage
-function logActivity(action) {
-    const activities = JSON.parse(localStorage.getItem("loginLogs")) || [];
-    const newActivity = {
-        ID: localStorage.getItem("ID"),
-        IP: localStorage.getItem("IP"),
-        action: action,
-        timestamp: new Date().toLocaleString()
-    };
-    activities.push(newActivity);
-    localStorage.setItem("loginLogs", JSON.stringify(activities));
-}
-
 // Handle logout
-document.getElementById("logout-btn").addEventListener("click", function () {
-    logActivity("Logout");
+document.getElementById("logout-btn").addEventListener("click", async function () {
+    await logActivity("Logout");
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("fullName");
     localStorage.removeItem("role");
