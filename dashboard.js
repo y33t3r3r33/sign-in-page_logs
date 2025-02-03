@@ -61,7 +61,7 @@ window.onload = async function () {
         });
 
         // Show the Clear Logs button for admins
-        if (role == "IT" || role == "TEST") {
+        if (role == "IT" || role == "IT Admin" || role == "TEST") {
             document.getElementById("clear-logs-btn").style.display = "inline-block"; 
         } else {
             document.getElementById("activity-list").style.display = "none";

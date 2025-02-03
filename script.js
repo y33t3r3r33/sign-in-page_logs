@@ -142,15 +142,3 @@ document.getElementById("login-form").addEventListener("submit", async function 
         document.getElementById("error-message").innerText = "Invalid ID or password.";
     }
 });
-
-// Handle logout
-document.getElementById("logout-btn").addEventListener("click", async function () {
-    await logActivity("Logout");
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("fullName");
-    localStorage.removeItem("role");
-    localStorage.removeItem("email");
-    localStorage.removeItem("theme");
-    localStorage.removeItem("IP");
-    window.location.href = "index.html"; // Redirect to login page
-});
